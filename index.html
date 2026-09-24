@@ -24,9 +24,37 @@
 					<h1>Coding beats with Strudel</h1>
 					<strudel-repl width="60%" height="500px">
 <!--
-setCpm(126/4)
+setCpm(136/4)
+samples('github:yaxu/clean-breaks')
 
-$: s("[bd:1 <hh:1 <oh:1 [hh:0 hh:0]>>]*4").bank("tr909")
+$: note("[c a g e]*4").trans(-24)
+   .sometimes(trans(12)).s("supersaw").decay(.1)
+   .lpf(
+     slider(350, 350, 4000)
+   )
+   .lpq(20)
+   .delay(.3)
+   .room(.3)
+   .orbit(2)
+   // ._pianoroll()
+
+_$: s("bd:1!4").bank("tr909").postgain(.8).duck("2")
+
+_$: s("think").fit()
+   // .slice(4, "<0 - 1 0 - 1 2 3>*8")
+   .cut(1)
+   // ._scope()
+
+_$: s("<- cp:1>*4").bank("tr909")
+   // .delay(.3)
+   // .room(.5)
+
+_$: s("white!16").hpf("5000:5").decay(.03).gain(.4)
+   .almostNever(ply("2 | 3"))
+   .room(.2)
+   .postgain(.6)
+   .orbit(2)
+   // ._scope()
 -->
 					</strudel-repl>
 				</section>
