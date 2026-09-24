@@ -7,7 +7,7 @@
 			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
 		/>
 
-		<title>reveal.js</title>
+		<title>Coding beats live with Strudel</title>
 
 		<link rel="stylesheet" href="dist/reset.css" />
 		<link rel="stylesheet" href="dist/reveal.css" />
@@ -27,7 +27,7 @@
 setCpm(136/4)
 samples('github:yaxu/clean-breaks')
 
-$: note("[c a g e]*4").trans(-24)
+$: note("<c a g e>*16").trans(-24)
    .sometimes(trans(12)).s("supersaw").decay(.1)
    .lpf(
      slider(350, 350, 4000)
@@ -38,7 +38,7 @@ $: note("[c a g e]*4").trans(-24)
    .orbit(2)
    // ._pianoroll()
 
-_$: s("bd:1!4").bank("tr909").postgain(.8).duck("2")
+_$: s("bd:1*4").bank("tr909").postgain(.8).duck("2")
 
 _$: s("think").fit()
    // .slice(4, "<0 - 1 0 - 1 2 3>*8")
