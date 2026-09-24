@@ -11,7 +11,7 @@
 
 		<link rel="stylesheet" href="dist/reset.css" />
 		<link rel="stylesheet" href="dist/reveal.css" />
-		<link rel="stylesheet" href="dist/theme/black.css" />
+		<link rel="stylesheet" href="dist/theme/moon.css" />
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="dist/plugin/highlight/monokai.css" />
@@ -19,8 +19,135 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+
+			  <section>
+					<h1>Coding beats with Strudel</h1>
+					<strudel-repl width="60%" height="500px">
+<!--
+setCpm(126/4)
+
+$: s("[bd:1 <hh:1 <oh:1 [hh:0 hh:0]>>]*4").bank("tr909")
+-->
+					</strudel-repl>
+				</section>
+
+				<section>
+				  <h2>Who am i?</h2>
+					<p>Fabio Neves a.k.a. fzero / No Step</p>
+					<p>Software engineer / Music producer</p>
+					<p><a href="https://fabioneves.ca">fabioneves.ca</a></p>
+				</section>
+
+				<section>
+				  <h2>What is Strudel?</h2>
+					<p>Web-based REPL for livecoding</p>
+					<p>based on the TidalCycles DSL</p>
+					<small>Part of the <em>uzu</em> family of languages</small>
+					<p>Huge in the Algorave scene</p>
+					<p>You only need a computer with a browser</p>
+					<p><a href="https://strudel.cc">strudel.cc</a></p>
+				</section>
+
+				<section>
+				  <h1>Wait back up a bit</h1>
+					<h3>Algorave?</h3>
+				</section>
+
+				<section>
+					<iframe src="https://en.wikipedia.org/wiki/Algorave" width="100%" height="800"></iframe>
+				</section>
+
+				<section>
+				  <h2>Livecoding is not a new thing</h2>
+					<p>It has roots both in the DIY electronic scene and academia</p>
+					<p>Music coding specifically goes all the way back to the 80s</p>
+					<small>The THX deep note is an early example</small>
+					<p>There are many languages and shells like<br/>ChucK, SonicPi (Ruby), Tidal (Haskell) and ORCA.</p>
+					<p>Many environments also include real-time visual livecoding</p>
+					<small>Strudel includes Hydra</small>
+				</section>
+
+				<section>
+				  <h2>Livecoding is a sleeper hit</h2>
+					<p>It's always been around but it used to be niche</p>
+					<p>The REPLs used to require installing and<br>configuring multiple pieces of software</p>
+					<small>E.g. Tidal needs Supecollider, Superdirt and a text editor</small>
+					<p>SonicPi simplified things with a single executable<br>
+					and was the go-to livecoding tool for a while</p>
+				</section>
+
+				<section>
+				  <h2>Strudel is a game-changer</h2>
+					<p>PWA running fully on the client-side</p>
+					<p>Uses both WebAudio and WebMIDI</p>
+					<p>Modular and embeddable!</p>
+					<strudel-repl width="60%" height="200px">
+<!--
+setcpm(170/4)
+samples('github:yaxu/clean-breaks')
+
+$: s("amen/4").fit().slice(16, "<4 1 4 6>*4")
+-->
+					</strudel-repl>
+				</section>
+
+				<section>
+				  <h2>Culture (the best part)</h2>
+					<p>The livecoding community is <strong>STRONGLY</strong> anti-AI</p>
+					<p>It's basically a mirror universe of mainstream tech</p>
+					<p>The major names are women and/or LGBTQ+</p>
+					<small>Look up DJ_Dave, Switch Angel, Bbubu Sync, Glossing</small>
+					<p>All Uzu projects (including Strudel) are hosted on<br>Codeberg, which prohibits LLM contributions</p>
+				</section>
+
+				<section>
+				  <h1>Now let's code some beats</h1>
+					<small>*This is not a tutorial BTW – you can find many on Youtube and the Strudel docs are great</small>
+				</section>
+
+				<section>
+				  <strudel-repl>
+<!--
+// @title Just some breaks
+// @by Fabio Neves
+// @license CC BY-NC-SA
+
+samples('github:yaxu/clean-breaks')
+samples('github:salsicha/capoeira_strudel')
+samples('github:eddyflux/crate')
+
+setcpm(170/4)
+
+$: stack(
+    s("kool/4").fit().slice(32, "<2 - 4 5 5 2 4 ->*8").room(.3).size(1),
+    s("useme/4").fit().slice(32, "<6 3 15 6 3 6 15 6>*8").delay(.1).room(.2).size(2),
+    s("crate_bd:1").beat("0,6,7", 16),
+    s("crate_sd:10").beat("4,12", 16).room(.1).size(1)
+  )
+  .ribbon(0, "<1 1 1 1 1 1 1 [.25 [.125 .0625]]>")
+
+// $: s("crate_sd:10").beat("4,12", 16).room(.1).size(1)
+
+$: s("loops:2/4 | loops:3/4 | loops:4/4").fit()
+  .hpf(saw.range(500,2000)).hpq(20)
+  .gain(.6)
+  .delay(.2)
+
+$: n("<1 7 2 3>")
+  .seg(5)
+  .scale("C:major")
+  .trans(-12)
+  .s("supersaw")
+  .decay(.4)
+  .detune(1)
+  .lpf(tri.range(700, 4000)).lpq(1)
+
+// all(x => x.gain(.5))
+-->
+					</strudel-repl>
+				</section>
+				<section>
+				</section>
 			</div>
 		</div>
 
@@ -29,11 +156,35 @@
 		<script src="dist/plugin/markdown.js"></script>
 		<script src="dist/plugin/highlight.js"></script>
 		<script>
+		  // Custom strudel embed with peoper size
+  		class Strudel extends HTMLElement {
+        constructor() {
+          super();
+        }
+        connectedCallback() {
+          requestAnimationFrame(() => {
+            const height = this.getAttribute('height')
+            const width = this.getAttribute('width')
+            const code = this.getAttribute('code') || (this.innerHTML + '').replace('<!--', '').replace('-->', '').trim();
+            const iframe = document.createElement('iframe');
+            const src = `https://strudel.cc/#${encodeURIComponent(btoa(code))}`;
+            iframe.setAttribute('src', src);
+            iframe.setAttribute('width', width || '100%');
+            iframe.setAttribute('height', height || '900px');
+            this.appendChild(iframe);
+          });
+        }
+  		}
+  		customElements.define('strudel-repl', Strudel);
+		</script>
+		<script>
 			// More info about initialization & config:
 			// - https://revealjs.com/initialization/
 			// - https://revealjs.com/config/
 			Reveal.initialize({
 				hash: true,
+				width: "90%",
+				height: "90%",
 
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
