@@ -25,14 +25,17 @@
 					<strudel-repl width="60%" height="500px">
 <!--
 setCpm(136/4)
+
 samples('github:yaxu/clean-breaks')
 
-$: note("<c a g e>*16").trans(-24)
+$: n("<0 3 1 4 0 2>*16").scale("f:minor:pentatonic").trans(-24)
    .sometimes(trans(12)).s("supersaw").decay(.1)
    .lpf(
      slider(350, 350, 4000)
    )
+   // .lfo({ s: .5 })
    .lpq(20)
+   .lfo({ s: .25, d: .20 })
    .delay(.3)
    .room(.3)
    .orbit(2)
@@ -41,15 +44,15 @@ $: note("<c a g e>*16").trans(-24)
 _$: s("bd:1*4").bank("tr909").postgain(.8).duck("2")
 
 _$: s("think").fit()
-   // .slice(4, "<0 - 1 0 - 1 2 3>*8")
+   .slice(4, "<0 - 1 0 - 1 2 3>*8")
    .cut(1)
    // ._scope()
 
 _$: s("<- cp:1>*4").bank("tr909")
-   // .delay(.3)
-   // .room(.5)
+   .delay(.3)
+   .room(.5)
 
-_$: s("white!16").hpf("5000:5").decay(.03).gain(.4)
+_$: s("white!16").hpf("5000:5").decay(.03).gain(.6)
    .almostNever(ply("2 | 3"))
    .room(.2)
    .postgain(.6)
