@@ -144,6 +144,29 @@ $: s("amen/4").fit().slice(16, "<4 1 4 6>*4")
 				</section>
 
 				<section>
+				  <h2>Coding TL;DR</h2>
+					<p>Notes and events use Tidal mini-notation</p>
+					<p>It's all about chaining functions</p>
+					<small>Like connecting cables in a modular synth or using pipes in a shell</small>
+					<p><code>$:</code> marks an individual track/instrument</p>
+					<small><code>"_"</code> mutes a track, <code>"S"</code> solos it</small>
+					<p>Plan your code to quickly comment/uncomment lines</p>
+					<strudel-repl width="60%" height="300px">
+<!--
+setcpm(120/4) // 120 BPM
+
+$: note("<a3 c#4 e4 a4>*16")  // Events inside <> play in one measure
+  .s("sawtooth")              // *16 = each note lasts 1/16th
+  .decay(.1)
+  .cutoff("500")
+  // .delay(0.5)
+  .room(0.5)
+  // .trans("<0 -5 -2 -7>")
+-->
+					</strudel-repl>
+				</section>
+
+				<section>
 				  <h1>Now let's code some beats</h1>
 					<small>*This is not a tutorial BTW – you can find many on Youtube and the Strudel docs are great</small>
 				</section>
