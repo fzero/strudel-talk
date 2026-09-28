@@ -28,7 +28,7 @@ setcpm(84/4)
 samples('http://localhost:5432')
 
 $: s("tim-ser-so:0/2").fit().cut(1)
-  .lpf(100)
+  .lpf(2000)
   .lfo({ s: .3, dr: .9 }).lpq(13)
   .room(.5)
   .orbit(2)
