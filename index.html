@@ -24,52 +24,22 @@
 					<h1>Coding beats with Strudel</h1>
 					<strudel-repl width="60%" height="500px">
 <!--
-setCpm(136/4)
+setcpm(84/4)
+samples('http://localhost:5432')
 
-samples('github:yaxu/clean-breaks')
+$: s("tim-ser-so:0/2").fit().cut(1)
+  .lpf(100)
+  // .lfo({ sh: "isaw", s: 12, dr: .9 }).lpq(13)
+  .room(.5)
+  .orbit(2)
 
-$: n("<0 3 1 4 0 2>*16").scale("f:minor:pentatonic").trans(-24)
-   .sometimes(trans(12)).s("supersaw").decay(.2)
-   .lpf(
-     slider(350, 350, 4000)
-   )
-   .lfo({ s: .5 })
-   .lpq(20)
-   .lfo({ s: .25, d: .20 })
-   .delay(.3)
-   .room(.3)
-   .orbit(2)
-   // ._pianoroll()
+_$: stack(
+  n("<0 1 4 6 1 1 4 6>*8").s("bread").cut(2),
+  s("drum_crazy:8").fit().slice(8, "<0 1 - ->*8").cut(3).duck(2),
+  s("drum_crazy:8").fit().slice(8, "<- - 2 3>*8").cut(3)
+)
 
-_$: s("bd:1*4").bank("tr909").postgain(.8).duck("2:3")
-_$: s("<bd:1 - - bd:1 - - bd:1 ->*8").bank("tr909").postgain(.8).duck("2:3")
-
-_$: s("think").fit()
-   .slice(4, "<0 - 1 0 - 1 2 3>*8")
-   .cut(1)
-   // ._scope()
-
-_$: s("<- cp:1>*4").bank("tr909")
-   .delay(.9)
-   .room(.5)
-
-_$: s("white!16").hpf("5000:5").decay(.03).gain(.8)
-   .almostNever(ply("2 | 3"))
-   .room(.2)
-   .postgain(.6)
-   .orbit(2)
-   // ._scope()
-
-_$: chord("<Fm Ab Bb C>").scale("f:minor:pentatonic").voicing()
-   .s("supersaw")
-   .attack(".5")
-   .lpf(
-     slider(2500, 1000, 2500)
-   )
-   .delay(.6)
-   .room(1)
-   .postgain(.6)
-   .orbit(3)
+// all(x => x.ribbon(0, "<1 [.25 [.125 .0625]]>"))
 -->
 					</strudel-repl>
 				</section>
@@ -124,12 +94,18 @@ _$: chord("<Fm Ab Bb C>").scale("f:minor:pentatonic").voicing()
 					<p>PWA running fully on the client-side</p>
 					<p>Uses both WebAudio and WebMIDI</p>
 					<p>Modular and embeddable!</p>
-					<strudel-repl width="60%" height="200px">
+					<strudel-repl width="60%" height="400px">
 <!--
 setcpm(170/4)
 samples('github:yaxu/clean-breaks')
 
-$: s("amen/4").fit().slice(16, "<4 1 4 6>*4")
+$: s("amen/4").fit()
+  // .scrub(
+  //   irand(16).div(16).seg(8) // Slice in 16 parts, play 8th notes
+  //   .rib(7, 2)               // Loop 2 bars from a chosen segment
+  // )
+  .cut(1)
+  ._scope()
 -->
 					</strudel-repl>
 				</section>
@@ -174,41 +150,54 @@ $: note("<a3 c#4 e4 a4>*16")  // Events inside <> play in one measure
 				<section>
 				  <strudel-repl>
 <!--
-// @title Just some breaks
-// @by Fabio Neves
-// @license CC BY-NC-SA
+setCpm(136/4)
 
 samples('github:yaxu/clean-breaks')
-samples('github:salsicha/capoeira_strudel')
-samples('github:eddyflux/crate')
 
-setcpm(170/4)
+$: n("<0 3 1 4 0 2>*16").scale("f:minor:pentatonic").trans(-24)
+   .sometimes(trans(12)).s("supersaw").decay(.2)
+   .lpf(
+     slider(350, 350, 4000)
+   )
+   .lfo({ s: .5 })
+   .lpq(20)
+   .lfo({ s: .25, d: .20 })
+   .delay(.3)
+   .room(.3)
+   .orbit(2)
+   // ._pianoroll()
 
-$: stack(
-    s("kool/4").fit().slice(32, "<2 - 4 5 5 2 4 ->*8").room(.3).size(1),
-    s("useme/4").fit().slice(32, "<6 3 15 6 3 6 15 6>*8").delay(.1).room(.2).size(2),
-    s("crate_bd:1").beat("0,6,7", 16),
-    s("crate_sd:10").beat("4,12", 16).room(.1).size(1)
-  )
-  .ribbon(0, "<1 1 1 1 1 1 1 [.25 [.125 .0625]]>")
+_$: s("bd:1*4").bank("tr909").postgain(.8).duck("2:3")
+_$: s("<bd:1 - - bd:1 - - bd:1 ->*8").bank("tr909").postgain(.8).duck("2:3")
 
-// $: s("crate_sd:10").beat("4,12", 16).room(.1).size(1)
+_$: s("think").fit()
+   .slice(4, "<0 - 1 0 - 1 2 3>*8")
+   .cut(1)
+   // ._scope()
 
-$: s("loops:2/4 | loops:3/4 | loops:4/4").fit()
-  .hpf(saw.range(500,2000)).hpq(20)
-  .gain(.6)
-  .delay(.2)
+_$: s("<- cp:1>*4").bank("tr909")
+   .delay(.9)
+   .room(.5)
 
-$: n("<1 7 2 3>")
-  .seg(5)
-  .scale("C:major")
-  .trans(-12)
-  .s("supersaw")
-  .decay(.4)
-  .detune(1)
-  .lpf(tri.range(700, 4000)).lpq(1)
+_$: s("white!16").hpf("5000:5").decay(.03).gain(.8)
+   .almostNever(ply("2 | 3"))
+   .room(.2)
+   .postgain(.6)
+   .orbit(2)
+   // ._scope()
 
-// all(x => x.gain(.5))
+_$: chord("<Fm Ab Bb C>").scale("f:minor:pentatonic").voicing()
+   .s("supersaw")
+   .attack(".5")
+   .lpf(
+     slider(2500, 1000, 2500)
+   )
+   .delay(.6)
+   .room(1)
+   .postgain(.6)
+   .orbit(3)
+
+// all(x => x.ribbon(0, "<1 [.25 [.125 .0625]]>"))
 -->
 					</strudel-repl>
 				</section>
