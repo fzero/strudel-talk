@@ -40,6 +40,8 @@ _$: stack(
 )
 
 // all(x => x.ribbon(0, "<1 [.25 [.125 .0625]]>"))
+
+all(x => x.postgain(.4))
 -->
 					</strudel-repl>
 				</section>
@@ -168,7 +170,7 @@ $: stack(
 // BASS
 _$: note("<f# [- f#] - f# - f# - f# f# [- f#] - f# f# f# - f#>*8")
   .transpose("<0 -2 -9 -7>").octave("2") // f# e a b
-  .s("gm_synth_bass_2").decay(.6).lpf(200).lpq(8)
+  .s("gm_synth_bass_2").decay(.6).lpf(150).lpq(8)
   .compressor("-20:20:10:.002:.02").distort("1.5:0.4:diode")
   .room(.1)
   .orbit(2)
