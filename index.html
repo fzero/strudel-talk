@@ -41,6 +41,7 @@ _$: stack(
 
 // all(x => x.ribbon(0, "<1 [.25 [.125 .0625]]>"))
 
+
 all(x => x.postgain(.4))
 -->
 					</strudel-repl>
@@ -158,8 +159,10 @@ samples('http://localhost:5432')
 
 // HALCYON
 $: stack(
-  // s("fineday:1/4").fit().cut(1),
-  s("halcyon:0/4").fit().cut(2).postgain(.9)
+  s("fineday:1/4").fit().cut(1)
+  // .scrub(irand(32).div(32).seg(16))
+  ,
+  // s("halcyon:0/4").fit().cut(2).postgain(.9)
 ).delay(.5).room(.5)
 
 // BASS
