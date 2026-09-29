@@ -162,43 +162,45 @@ samples('http://localhost:5432')
 // HALCYON
 $: stack(
   // s("fineday:1/4").fit().cut(1),
-  s("halcyon:0/4").fit().cut(2).postgain(.8)
-).delay(.5).room(.5).orbit(2)
+  s("halcyon:0/4").fit().cut(2).postgain(.9)
+).delay(.5).room(.5)
 
 // BASS
 _$: note("<f# [- f#] - f# - f# - f# f# [- f#] - f# f# f# - f#>*8")
   .transpose("<0 -2 -9 -7>").octave("2") // f# e a b
-  .s("gm_synth_bass_2").decay(.6).lpf(100).lpq(8)
+  .s("gm_synth_bass_2").decay(.6).lpf(200).lpq(8)
+  .compressor("-20:20:10:.002:.02").distort("1.5:0.4:diode")
   .room(.1)
   .orbit(2)
 
 // DRUMS
 _$: stack(
-  s("bd:1!4").bank("tr909").duck("2").postgain(.9),
-  s("<- - sd:3 [- sd:3]- - sd:3 ->*8").bank("tr909"),
-  s("<- cp:1>*4").bank("tr909").delay(.3),
-  s("white").segment(16).hpf("8000").decay("<.02!7 .7>*8").gain("<1 .6>*16").postgain(.7)
-).room(.1)
+  s("bd:1!4").bank("tr909").duck("2").postgain(.8),
+  // s("<- - sd:3 [- sd:3]- - sd:3 ->*8").bank("tr909"),
+  // s("<- cp:1>*4").bank("tr909").delay(.3),
+  // s("white").segment(16).hpf("8000").decay("<.02!7 .7>*8").gain("<1 .6>*16").postgain(.7)
+).postgain(.85).room(.1)
 
 // BREAKS
 _$: stack(
   s("mybreaks:0/4").fit().hpf(500).postgain(.6),
   s("mybreaks:2/2").fit().postgain(1),
-  // s("mybreaks:1/2").fit()
+  // s("mybreaks:1/2").fit().postgain(.9)
 )
 
-// BELINDA
+// Belinda
 _$: stack(
   s("belinda:0/8").cut(3)
   // .speed(-1)
-  .postgain(.8).delay(.5)
-).room(.2).orbit(2)
+  .postgain(.9)
+).room(.2).delay(.5)
 
-// BON JOVI
+// Bon Jovi
 _$: stack(
   s("bonjovi:0/4").fit().cut(4).postgain(1.2)
-).room(.2).orbit(2)
+).room(.2)
 
+// all(x => x.scope())
 -->
 					</strudel-repl>
 				</section>
