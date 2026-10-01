@@ -193,17 +193,16 @@ _$: stack(
 ).room(.1)
 
 // BELINDA
-_$: stack(
-  s("belinda:0/8").cut(3)
+_$: s("belinda:0/8").cut(3)
   .speed(-1)
   // .scrub(irand(32).div(32).seg(16)).decay(.5)
   .gain(1.1)
-).room(.2).delay(.5)
+  .room(.2).delay(.5)
 
 // BON JOVI
-_$: stack(
-  s("bonjovi:0/4").cut(4).gain(1.4)
-).room(.3).delay(.2)
+_$: s("bonjovi:0/4").cut(4)
+  .gain(1.4)
+  .room(.3).delay(.2)
 
 // all(x => x.scope())
 -->
