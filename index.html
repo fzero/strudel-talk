@@ -153,6 +153,10 @@ $: note("<a3 c#4 e4 a4>*16")  // Events inside <> play in one measure
 				<section>
 				  <strudel-repl>
 <!--
+// @title Halcyon rebuild kinda
+// @by Fabio Neves
+// @license CC BY-NC-SA
+
 setCpm(127/4)
 
 samples('http://localhost:5432')
@@ -161,8 +165,8 @@ samples('http://localhost:5432')
 $: s("halcyon:0/4").fit().cut(2).delay(.5).room(.5).gain(.95)
 
 // FINE DAY
-_$: s("fineday:0/4").fit().cut(1).gain(1.2)
-  // .scrub(irand(32).div(32).seg(16)).decay(.5)
+_$: s("fineday:1/4").fit().cut(1).gain(1.2)
+  // .scrub(irand(32).div(32).seg(8)).decay(.5)
   .delay(.5).room(.5)
 
 // BASS
@@ -174,16 +178,16 @@ _$: note("<f# [- f#] - f# - f# - f# f# [- f#] - f# f# f# - f#>*8")
   .orbit(2)
 
 // DRUMS
-$: stack(
-  // s("bd:1!4").bank("tr909").duck("2").gain(.95),
-  // s("<- - sd:3 [- sd:3]- - sd:3 ->*8").bank("tr909").gain(1.3),
-  // s("<- cp:1>*4").bank("tr909").gain(1.3).delay(.3),
-  // s("white").segment(16).hpf("8000").decay("<.02!7 .7>*8").gain("<1 .6>*16").gain(.75)
+_$: stack(
+  s("bd:1!4").bank("tr909").duck("2").gain(.95),
+  s("<- - sd:3 [- sd:3]- - sd:3 ->*8").bank("tr909").gain(1.3),
+  s("<- cp:1>*4").bank("tr909").gain(1.3).delay(.3),
+  s("white").segment(16).hpf("8000").decay("<.02!7 .7>*8").gain("<1 .6>*16").gain(.75)
 ).postgain(.85).room(.1)
 
 // BREAKS
-$: stack(
-  // s("mybreaks:0/4").fit().hpf(700).gain(.6).orbit(2),
+_$: stack(
+  s("mybreaks:0/4").fit().slice(4, "3").hpf(500).gain(.6).orbit(2),
   // s("mybreaks:2/2").fit().gain(1),
   // s("mybreaks:1/2").fit().gain(.9)
 ).room(.1)
@@ -191,13 +195,14 @@ $: stack(
 // BELINDA
 _$: stack(
   s("belinda:0/8").cut(3)
-  // .speed(-1)
+  .speed(-1)
+  // .scrub(irand(32).div(32).seg(16)).decay(.5)
   .gain(1.1)
 ).room(.2).delay(.5)
 
 // BON JOVI
 _$: stack(
-  s("bonjovi:0/4").fit().cut(4).gain(1.4)
+  s("bonjovi:0/4").cut(4).gain(1.4)
 ).room(.3).delay(.2)
 
 // all(x => x.scope())
