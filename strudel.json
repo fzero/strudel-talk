@@ -1,4 +1,5 @@
 {
+  "_base":"https://raw.githubusercontent.com/fzero/strudel-talk/refs/heads/main/samples/",
 	"belinda": ["/belinda/belinda.wav"],
 	"bonjovi": ["/bonjovi/bonjovi.wav"],
 	"bread": [
